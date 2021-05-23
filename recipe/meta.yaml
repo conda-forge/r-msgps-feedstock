@@ -21,15 +21,14 @@ build:
 
 requirements:
   build:
-    - {{ compiler('c') }}        # [not win]
-    - {{ compiler('fortran') }}        # [not win]
+    - {{ compiler('c') }}              # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
-    - {{ compiler('m2w64_fortran') }}        # [win]
     - {{ posix }}filesystem        # [win]
     - {{ posix }}make
     - {{ posix }}sed               # [win]
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
+    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
   host:
     - r-base
   run:
@@ -43,23 +42,18 @@ test:
 
 about:
   home: http://www.keihirose.com/.
-  license: GPL (>= 2)
+  license: GPL-2.0-or-later
   summary: This package computes the degrees of freedom of the lasso, elastic net, generalized
     elastic net and adaptive lasso based on the generalized path seeking algorithm.  The
     optimal model can be selected by model selection criteria including Mallows' Cp,
     bias-corrected AIC (AICc), generalized cross validation (GCV) and BIC.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
     - conda-forge/r
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
-    - cbrueffer
-    - dbast
 
 # Package: msgps
 # Type: Package
